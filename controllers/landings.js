@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const landing = require('../db/mongodb');
 
 const getLandings = async(req,res)=>{
-    landing.find({}, (err, docs)=>{
+    await landing.find({}, (err, docs)=>{
     if(err){
         console.log(err)
     }
@@ -14,7 +14,7 @@ const getLandings = async(req,res)=>{
 
 const getLandingsMinMass = async(req, res)=>{
     const masa = req.params.mass
-    landing.find({mass: {$gte:masa}}, (err, docs)=>{
+    await landing.find({mass: {$gte:masa}}, (err, docs)=>{
         if(err){
             console.log(err)
         }
@@ -28,7 +28,7 @@ const getLandingsMinMass = async(req, res)=>{
 
 const getLandingsByMass = async(req, res)=>{
     const masa = req.params.mass
-    landing.find({mass: `${masa}`}, (err, docs)=>{
+    await landing.find({mass: `${masa}`}, (err, docs)=>{
         if(err){
             console.log(err)
         }
@@ -42,7 +42,7 @@ const getLandingsByMass = async(req, res)=>{
 
 const getLandingsByClass = async(req, res)=>{
     const clase = req.params.recclass
-    landing.find({recclass: `${clase}`}, (err, docs)=>{
+    await landing.find({recclass: `${clase}`}, (err, docs)=>{
         if(err){
             console.log(err)
         }
@@ -58,7 +58,7 @@ const getLandingsByDate = async(req, res)=>{
     const { from, to } = req.query;
     if (from || to) {
         const results = []
-        const landing = await Landing.find({}, {
+        const landing = await landing.find({}, {
             name: 1,
             mass: 1,
             year: 1
