@@ -54,37 +54,37 @@ const getLandingsByClass = async(req, res)=>{
     })
 }
 
-const getLandingsByDate = async(req, res)=>{
-    const { from, to } = req.query;
-    if (from || to) {
-        const results = []
-        const landing = await landing.find({}, {
-            name: 1,
-            mass: 1,
-            year: 1
-        }).sort({ year: 1 });
-        landing.map(item => {
-            if (item.year) {
-                let year = item.year.slice(0, 4);
-                if (from && !to && from && Number(year) >= Number(from)) {
-                    results.push(item)
-                }
-                if (!from && to && to && Number(year) <= Number(to)) {
-                    results.push(item)
-                }
-                if (from && to && from && to && (Number(year) >= Number(from) && Number(year) <= Number(to))) {
-                    results.push(item)
-                }
-            }
-        });
+// const getLandingsByDate = async(req, res)=>{
+//     const { from, to } = req.query;
+//     if (from || to) {
+//         const results = []
+//         const landing = await landing.find({}, {
+//             name: 1,
+//             mass: 1,
+//             year: 1
+//         }).sort({ year: 1 });
+//         landing.map(item => {
+//             if (item.year) {
+//                 let year = item.year.slice(0, 4);
+//                 if (from && !to && from && Number(year) >= Number(from)) {
+//                     results.push(item)
+//                 }
+//                 if (!from && to && to && Number(year) <= Number(to)) {
+//                     results.push(item)
+//                 }
+//                 if (from && to && from && to && (Number(year) >= Number(from) && Number(year) <= Number(to))) {
+//                     results.push(item)
+//                 }
+//             }
+//         });
 
-        if (results.length < 1) {
-            return res.json({ message: 'No landings with such parameters' });
-        }
+//         if (results.length < 1) {
+//             return res.json({ message: 'No landings with such parameters' });
+//         }
 
-        res.json({ results })
-    }
-}
+//         res.json({ results })
+//     }
+// }
 
 
-module.exports = {getLandings, getLandingsMinMass, getLandingsByMass, getLandingsByClass, getLandingsByDate};
+module.exports = {getLandings, getLandingsMinMass, getLandingsByMass, getLandingsByClass, /*getLandingsByDate*/};
